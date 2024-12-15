@@ -1,6 +1,17 @@
-// Optional JavaScript for dynamic content loading
 document.addEventListener('DOMContentLoaded', () => {
-    // You can add JavaScript to dynamically load section content if needed
-    // For now, this is a placeholder
-    console.log('Project report website loaded');
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the target section
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            // Scroll to the section smoothly
+            targetSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 });
