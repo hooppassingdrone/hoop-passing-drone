@@ -26,16 +26,17 @@ header {
 
 nav {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: center; /* Center align buttons */
+    gap: 15px; /* Space between buttons */
     margin-top: 15px;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 10px 15px; /* Increase padding for better spacing */
+    border-radius: 5px; /* Slightly rounder edges */
     transition: background-color 0.3s ease;
 }
 
@@ -81,4 +82,8 @@ html {
 section {
     padding-top: 60px; /* Add padding to account for fixed header */
     margin-top: -60px; /* Offset for smooth scrolling */
+}
+
+nav a {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
 }
