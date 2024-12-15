@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robotics Project Final Report</title>
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- MathJax Script for LaTeX Equations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$','$'], ['\\(','\\)']],
+                displayMath: [['$$','$$'], ['\\[','\\]']],
+                processEscapes: true
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -23,32 +35,74 @@
     <main>
         <section id="introduction">
             <h2>Introduction</h2>
-            <p>Project overview and high-level description goes here.</p>
+            <p>Project overview and high-level description.</p>
+            
+            <!-- Example of an inline equation -->
+            <p>Our core algorithm can be represented as: $f(x) = ax^2 + bx + c$</p>
+            
+            <!-- Example of a display equation -->
+            <p>The key kinematic equation for our robot's motion is:
+                $$\vec{v} = \frac{d\vec{r}}{dt} = \lim_{\Delta t \to 0} \frac{\Delta \vec{r}}{\Delta t}$$
+            </p>
         </section>
 
         <section id="design">
             <h2>Design</h2>
-            <p>Detailed design information goes here.</p>
+            <p>Detailed design information.</p>
+            
+            <!-- Image example -->
+            <div class="image-container">
+                <img src="assets/images/system-design.jpg" alt="System Design Diagram">
+                <p class="image-caption">Figure 1: Overall system design architecture</p>
+            </div>
         </section>
 
         <section id="implementation">
             <h2>Implementation</h2>
-            <p>How the project was built and implemented goes here.</p>
+            <p>How the project was built and implemented.</p>
+            
+            <!-- Video example -->
+            <div class="video-container">
+                <video controls width="640">
+                    <source src="assets/videos/project-demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p class="video-caption">Project Implementation Demonstration</p>
+            </div>
         </section>
 
         <section id="results">
             <h2>Results</h2>
-            <p>Project outcomes and performance details go here.</p>
+            <p>Project outcomes and performance details.</p>
+            
+            <!-- Multiple images example -->
+            <div class="image-gallery">
+                <img src="assets/images/result-1.jpg" alt="Result Visualization 1">
+                <img src="assets/images/result-2.jpg" alt="Result Visualization 2">
+                <p class="image-caption">Figures showing project results</p>
+            </div>
         </section>
 
         <section id="conclusion">
             <h2>Conclusion</h2>
-            <p>Final thoughts and project summary goes here.</p>
+            <p>Final thoughts and project summary.</p>
+            
+            <!-- Complex equation example -->
+            <p>Our performance can be mathematically described as:
+                $$\text{Performance} = \int_0^T \left(\frac{\text{Output}_t}{\text{Input}_t}\right) dt$$
+            </p>
         </section>
 
         <section id="team">
             <h2>Team</h2>
-            <p>Team member information goes here.</p>
+            <p>Team member information.</p>
+            
+            <!-- Team member images -->
+            <div class="team-gallery">
+                <img src="assets/images/team-member-1.jpg" alt="Team Member 1">
+                <img src="assets/images/team-member-2.jpg" alt="Team Member 2">
+                <img src="assets/images/team-member-3.jpg" alt="Team Member 3">
+            </div>
         </section>
 
         <section id="additional-materials">
