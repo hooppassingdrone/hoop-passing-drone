@@ -425,10 +425,10 @@
             <p> We encountered difficulties with the drone control, since it is so limited in velocity control, and it has some variable time latency, so it was diffciult handling the noise in the control commands, plus the delay for the drone to follow the command. </p>
             <p> One hack/flaw we used was to simply pick the first feasible point that is within the required velocity limit, which may not lead to the most smooth hoop passing trajectory of the drone, however it should still work reliably, since we throw the hoop in front of the drone, so the plane of the hoop where the drone can pass will likely always provide an angle for the drone to pass through it. </p>
             <p> Takeaways and Improvements: </p>
-            <ul>
+            <ul class="formatted-list">
                 <li>Use a faster drone in the future</li>
                 <li>Filter the points used for least squares
-                    <ul>
+                    <ul class="formatted-list">
                         <li>Have worked on this more and made progress in getting better trajectory predictions, particularly for the thrown hoop case</li>
                     </ul>
                 </li>
