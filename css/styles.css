@@ -187,16 +187,3 @@ main {
     height: 100%;
     border: none;
 }
-
-.image-container {
-    display: flex;
-    justify-content: space-between;  /* Optional: space between images */
-    align-items: center;
-}
-
-/* Apply styles specifically to the container with exactly 2 images */
-.image-container:nth-of-type(2) > img {
-    width: 150px;
-    height: auto;
-    margin: 0 10px; /* Optional: space between the images */
-}
