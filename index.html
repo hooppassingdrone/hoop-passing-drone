@@ -64,7 +64,7 @@
             <!-- Image example -->
             <div class="image-container">
                 <img src="assets/images/system_design.png" alt="System Design Diagram">
-                <p class="image-caption">Figure 1: Overall system design architecture</p>
+                <p class="image-caption">Figure 2: Overall system design architecture</p>
             </div>
             <p>Some of the design choices we had to make are: </p>
             <ul class="formatted-list">
@@ -110,6 +110,11 @@
                 <li> Use ROS to transform Vicon world coordinates into drone coordinates </li>
             </ul>
 
+
+            <div class="image-container">
+                <img src="assets/images/vicon.png" alt="Vicon Tracker App">
+                <p class="image-caption">Figure 3: Visualization of drone and hoop objects on Vicon</p>
+            </div>
             
             <p>Now, let's go through the chronological steps of the entire process for the hoop-passing controller:  </p>
             <ol class="formatted-list">
@@ -120,12 +125,11 @@
                 <li>Drone uses trajectory to determine point to go to</li>
                 <li>Drone control using Tello SDK to go to in the direction of the desired point at a desired velocity</li>
             </ol>
-            
 
-
+            <p>Predicting the Hoop’s Trajectory: </p>
             <div class="image-container">
-                <img src="assets/images/vicon.png" alt="Vicon Tracker App">
-                <p class="image-caption">Figure 1: Visualization of drone and hoop objects on Vicon</p>
+                <img src="assets/images/hoop_traj.png" alt="Hoop Trajectory Prediction">
+                <p class="image-caption">Figure 4: The motion along each axis can be modeled as a parabola. Trying to find a parameter matrix that satisfies the above equation. </p>
             </div>
             
             <!-- Video example -->
