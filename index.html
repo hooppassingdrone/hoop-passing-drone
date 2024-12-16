@@ -158,18 +158,18 @@
             <p> <b>Challenges with the thrown hoop-passing problem: </b>  </p>
             <ul class="formatted-list">
                 <li>The drone is slow
-                    <ul>
+                    <ul class="formatted-list">
                         <li>Max allowed speed is 1 m/s</li>
                     </ul>
                 </li>
                 <li>Gravity is strong
-                    <ul>
+                    <ul class="formatted-list">
                         <li>The hoop is only in the air for at most 2 seconds</li>
                     </ul>
                 </li>
                 <li>MoCap room loses tracking if the hoop goes above a certain height (~2m)</li>
                 <li>Although the drone acknowledges a command, it acts on it after some random time
-                    <ul>
+                    <ul class="formatted-list">
                         <li>Tries to solve this using forward warmup</li>
                     </ul>
                 </li>
@@ -183,17 +183,17 @@
             <p> How to Predict Rolling Hoop Trajectory: Use Least Squares!  </p>
             <ul class="formatted-list">
                 <li>4 unknowns: 2 for initial velocity, and 2 for initial position
-                    <ul>
+                    <ul class="formatted-list">
                         <li>Acceleration is known — assumed to be constantly 0 (no friction)!</li>
                     </ul>
                 </li>
                 <li>First approach: 
-                    <ul>
+                    <ul class="formatted-list">
                         <li>Determine the required velocity to go to a future point (time is known) and go at the required velocity – due to latency, required velocity isn’t enough</li>
                     </ul>
                 </li>
                 <li>First approach does not work, since required velocity is not enough, due to variable latency, and even with rolling hoop, drone is very slow in general</li>
-                    <ul>
+                    <ul class="formatted-list">
                         <li>Go to feasible point (within bounds of command) at top speed</li>
                     </ul>
                 <li>Feasible point is the first point that satisfies the requirement of the required velocity being the cap of $1 m/s$. This can be determined by finding the distance between the point and drone's current position, and dividing it by the known time for the hoop to reach that point.</li>
