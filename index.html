@@ -134,6 +134,11 @@
             <p><b>The solution is using LEAST SQUARES:</b> </p>
             <p> We are trying to solve $$x(t) = x_0 + v_0t + 0.5at^2$$ </p>
             <p> 6 unknowns: 3 for initial velocity, and 3 for initial position. Acceleration is known! </p>
+
+            <div class="image-container">
+                <img src="assets/images/lsq.png" alt="Throwing lsq">
+                <p class="image-caption">Figure 5: This gives the equation to determine $\beta$, which is the params matrix at the bottom, where $v$ is the initial velocity and $p$ is the initial position. </p>
+            </div>
             
             <p> Deciding on a point to fly through: </p>
             <ul class="formatted-list">
@@ -144,6 +149,11 @@
                     </ul>
                 </li>
             </ul>
+
+            <div class="image-container">
+                <img src="assets/images/0.1secs.png" alt="0.1 secs">
+                <p class="image-caption">Figure 6: Illustration of the intent of our picked feasible point </p>
+            </div>
             
             <p> <b>Challenges with the thrown hoop-passing problem: </b>  </p>
             <ul class="formatted-list">
@@ -166,13 +176,30 @@
                 <li>Least Squares with few data points is susceptible to noise, even on the order of millimeters
                 </li>
             </ul>
+
+            <p style="font-size: 24px; font-weight: bold;">We couldn’t get the hoop-throwing pass through to work. So we tried rolling it instead.</p>
             
-            
-            <div class="image-container">
-                <img src="assets/images/lsq.png" alt="Throwing lsq">
-                <p class="image-caption">Figure 5: This gives the equation to determine $\beta$, which is the params matrix at the bottom, where $v$ is the initial velocity and $p$ is the initial position. </p>
-            </div>
-            
+
+            <p> How to Predict Rolling Hoop Trajectory: Use Least Squares!  </p>
+            <ul class="formatted-list">
+                <li>4 unknowns: 2 for initial velocity, and 2 for initial position
+                    <ul>
+                        <li>Acceleration is known — assumed to be constantly 0 (no friction)!</li>
+                    </ul>
+                </li>
+                <li>First approach: 
+                    <ul>
+                        <li>Determine the required velocity to go to a future point (time is known) and go at the required velocity – due to latency, required velocity isn’t enough</li>
+                    </ul>
+                </li>
+                <li>First approach does not work, since required velocity is not enough, due to variable latency, and even with rolling hoop, drone is very slow in general</li>
+                    <ul>
+                        <li>Go to feasible point (within bounds of command) at top speed</li>
+                    </ul>
+                <li>Feasible point is the first point that satisfies the requirement of the required velocity being the cap of $1 m/s$. This can be determined by finding the distance between the point and drone's current position, and dividing it by the known time for the hoop to reach that point.</li>
+            </ul>
+
+
             <!-- Video example -->
             <div class="video-container">
                 <video controls width="640">
