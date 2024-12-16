@@ -159,11 +159,11 @@ main {
 }
 
 .formatted-list {
-    margin: 20px; /* Adds margin around the list */
+    margin: 15px; /* Adds margin around the list */
     padding-left: 40px; /* Indents the list */
     font-family: Arial, sans-serif; /* Sets the font */
     font-size: 16px; /* Sets the font size */
-    line-height: 1.8; /* Increases line spacing for readability */
+    line-height: 1.2; /* Increases line spacing for readability */
 }
 
 .formatted-list li {
