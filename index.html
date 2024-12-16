@@ -76,128 +76,135 @@
 
         <section id="implementation">
             <h2>Implementation</h2>
-            <p>Some of the design choices we had to make are: </p>
-            <ul class="formatted-list">
-                <li> 69 cm diameter hoop for the drone to fly through </li>
-                <li> Drone: DJI Tello – controlled using Tello SDK, in order to fly autonomously fly through a predicted location of the hoop in the future </li>
-                <li> Mocap Room: To get exact coordinates of drone and hoop </li>
-            </ul>
-            <p>On VICON Tracker App, we could create objects for the hoop and drone based on the markers and create the body coordinate frame as well. </p>   
-            <p>Localizing the hoop: </p>
-            <ul class="formatted-list">
-                <li> We attached 4 IR-reflecting markers to the hoop </li>
-                <li> Define the center of mass to be the average of these 4 points, which will be the midpoint of the hoop </li>
-                <li> Configure Vicon to publish this position to a rostopic. Vicon publishes points at ~125 Hz. </li>
-            </ul>
-
-            <p>Localizing the drone: </p>
-            <ul class="formatted-list">
-                <li> We attached 5 IR-reflecting markers to the drone in an asymmetrical manner </li>
-                <li> Asymmetrical configuration reduces ambiguity in marker identification of body </li>
-                <li> Define the origin to be the top marker on the marker configuration. Configure Vicon to publish this position to a rostopic. </li>
-            </ul>
-
-            <div class="image-container">
-                <img src="assets/images/vicon.png" alt="Vicon Tracker App">
-                <p class="image-caption">Figure 3: Visualization of drone and hoop objects on Vicon</p>
-            </div>
-            
-            <p>Controlling the drone using Tello SDK: </p>
-            <ul class="formatted-list">
-                <li> Use DJITelloPy, a wrapper of the Tello SDK </li>
-                <li> Connect laptop to the Tello Wifi </li>
-                <li>Useful commands:
-                    <ul class="formatted-list">
-                        <li><code>send_rc_control(left_right_velocity, forward_backward_velocity, up_down_velocity, yaw_velocity)</code></li>
-                        <li><code>go_xyz_speed(x, y, z, speed)</code></li>
-                    </ul>
-                </li>
-                <li> Use ROS to transform Vicon world coordinates into drone coordinates </li>
-            </ul>
-            
-            <p>Now, let's go through the chronological steps of the entire process for the hoop-passing controller:  </p>
-            <ol class="formatted-list">
-                <li>Drone Takeoff</li>
-                <li>Drone Warm-up (move forward as fast as possible)</li>
-                <li>Hoop is thrown into the air</li>
-                <li>Hoop Trajectory Prediction</li>
-                <li>Drone uses trajectory to determine point to go to</li>
-                <li>Drone control using Tello SDK to go to in the direction of the desired point at a desired velocity</li>
-            </ol>
-
-            <p>Predicting the Hoop’s Trajectory: </p>
-            <div class="image-container">
-                <img src="assets/images/hoop_traj.png" alt="Hoop Trajectory Prediction">
-                <p class="image-caption">Figure 4: The motion along each axis can be modeled as a parabola. Trying to find a parameter matrix that satisfies the above equation. </p>
-            </div>
-
-            <p><b>The solution is using LEAST SQUARES:</b> </p>
-            <p> We are trying to solve $$x(t) = x_0 + v_0t + 0.5at^2$$ </p>
-            <p> 6 unknowns: 3 for initial velocity, and 3 for initial position. Acceleration is known! </p>
-
-            <div class="image-container">
-                <img src="assets/images/lsq.png" alt="Throwing lsq">
-                <p class="image-caption">Figure 5: This gives the equation to determine $\beta$, which is the params matrix at the bottom, where $v$ is the initial velocity and $p$ is the initial position. </p>
-            </div>
-            
-            <p> Deciding on a point to fly through: </p>
-            <ul class="formatted-list">
-                <li> Point that the hoop will be at .1 seconds before hitting the ground </li>
-                <li>Gives the drone the most time to reach it
-                    <ul class="formatted-list">
-                        <li>The drone is <b>slow</b>, so this is important </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <div class="image-container">
-                <img src="assets/images/0.1secs.png" alt="0.1 secs">
-                <p class="image-caption">Figure 6: Illustration of the intent of our picked feasible point </p>
-            </div>
-            
-            <p> <b>Challenges with the thrown hoop-passing problem: </b>  </p>
-            <ul class="formatted-list">
-                <li>The drone is slow
-                    <ul class="formatted-list">
-                        <li>Max allowed speed is 1 m/s</li>
-                    </ul>
-                </li>
-                <li>Gravity is strong
-                    <ul class="formatted-list">
-                        <li>The hoop is only in the air for at most 2 seconds</li>
-                    </ul>
-                </li>
-                <li>MoCap room loses tracking if the hoop goes above a certain height (~2m)</li>
-                <li>Although the drone acknowledges a command, it acts on it after some random time
-                    <ul class="formatted-list">
-                        <li>Tries to solve this using forward warmup</li>
-                    </ul>
-                </li>
-                <li>Least Squares with few data points is susceptible to noise, even on the order of millimeters
-                </li>
-            </ul>
-
-            <p style="font-size: 24px; font-weight: bold;">We couldn’t get the hoop-throwing pass through to work. So we tried rolling it instead.</p>
-            
-
-            <p> How to Predict Rolling Hoop Trajectory: Use Least Squares!  </p>
-            <ul class="formatted-list">
-                <li>4 unknowns: 2 for initial velocity, and 2 for initial position
-                    <ul class="formatted-list">
-                        <li>Acceleration is known — assumed to be constantly 0 (no friction)!</li>
-                    </ul>
-                </li>
-                <li>First approach: 
-                    <ul class="formatted-list">
-                        <li>Determine the required velocity to go to a future point (time is known) and go at the required velocity – due to latency, required velocity isn’t enough</li>
-                    </ul>
-                </li>
-                <li>First approach does not work, since required velocity is not enough, due to variable latency, and even with rolling hoop, drone is very slow in general</li>
+        
+            <section id="hardware-setup">
+                <h3>Hardware Setup and Localization</h3>
+                <p>Some of the design choices we had to make are: </p>
+                <ul class="formatted-list">
+                    <li>69 cm diameter hoop for the drone to fly through</li>
+                    <li>Drone: DJI Tello – controlled using Tello SDK, in order to fly autonomously through a predicted location of the hoop in the future</li>
+                    <li>MoCap Room: To get exact coordinates of drone and hoop</li>
+                </ul>
+                <p>On VICON Tracker App, we could create objects for the hoop and drone based on the markers and create the body coordinate frame as well.</p>
+        
+                <h4>Localizing the Hoop:</h4>
+                <ul class="formatted-list">
+                    <li>We attached 4 IR-reflecting markers to the hoop</li>
+                    <li>Define the center of mass to be the average of these 4 points, which will be the midpoint of the hoop</li>
+                    <li>Configure Vicon to publish this position to a rostopic. Vicon publishes points at ~125 Hz.</li>
+                </ul>
+        
+                <h4>Localizing the Drone:</h4>
+                <ul class="formatted-list">
+                    <li>We attached 5 IR-reflecting markers to the drone in an asymmetrical manner</li>
+                    <li>Asymmetrical configuration reduces ambiguity in marker identification of body</li>
+                    <li>Define the origin to be the top marker on the marker configuration. Configure Vicon to publish this position to a rostopic.</li>
+                </ul>
+        
+                <div class="image-container">
+                    <img src="assets/images/vicon.png" alt="Vicon Tracker App">
+                    <p class="image-caption">Figure 3: Visualization of drone and hoop objects on Vicon</p>
+                </div>
+            </section>
+        
+            <section id="drone-control">
+                <h3>Drone Control and Trajectory Prediction</h3>
+                <p>Controlling the drone using Tello SDK:</p>
+                <ul class="formatted-list">
+                    <li>Use DJITelloPy, a wrapper of the Tello SDK</li>
+                    <li>Connect laptop to the Tello Wifi</li>
+                    <li>Useful commands:
+                        <ul class="formatted-list">
+                            <li><code>send_rc_control(left_right_velocity, forward_backward_velocity, up_down_velocity, yaw_velocity)</code></li>
+                            <li><code>go_xyz_speed(x, y, z, speed)</code></li>
+                        </ul>
+                    </li>
+                    <li>Use ROS to transform Vicon world coordinates into drone coordinates</li>
+                </ul>
+        
+                <p>Now, let's go through the chronological steps of the entire process for the hoop-passing controller:</p>
+                <ol class="formatted-list">
+                    <li>Drone Takeoff</li>
+                    <li>Drone Warm-up (move forward as fast as possible)</li>
+                    <li>Hoop is thrown into the air</li>
+                    <li>Hoop Trajectory Prediction</li>
+                    <li>Drone uses trajectory to determine point to go to</li>
+                    <li>Drone control using Tello SDK to go to in the direction of the desired point at a desired velocity</li>
+                </ol>
+        
+                <p>Predicting the Hoop’s Trajectory:</p>
+                <div class="image-container">
+                    <img src="assets/images/hoop_traj.png" alt="Hoop Trajectory Prediction">
+                    <p class="image-caption">Figure 4: The motion along each axis can be modeled as a parabola. Trying to find a parameter matrix that satisfies the above equation.</p>
+                </div>
+        
+                <p><b>The solution is using LEAST SQUARES:</b></p>
+                <p>We are trying to solve $$x(t) = x_0 + v_0t + 0.5at^2$$</p>
+                <p>6 unknowns: 3 for initial velocity, and 3 for initial position. Acceleration is known!</p>
+        
+                <div class="image-container">
+                    <img src="assets/images/lsq.png" alt="Throwing lsq">
+                    <p class="image-caption">Figure 5: This gives the equation to determine $\beta$, which is the params matrix at the bottom, where $v$ is the initial velocity and $p$ is the initial position.</p>
+                </div>
+        
+                <h4>Deciding on a Point to Fly Through:</h4>
+                <ul class="formatted-list">
+                    <li>Point that the hoop will be at .1 seconds before hitting the ground</li>
+                    <li>Gives the drone the most time to reach it
+                        <ul class="formatted-list">
+                            <li>The drone is <b>slow</b>, so this is important</li>
+                        </ul>
+                    </li>
+                </ul>
+        
+                <div class="image-container">
+                    <img src="assets/images/0.1secs.png" alt="0.1 secs">
+                    <p class="image-caption">Figure 6: Illustration of the intent of our picked feasible point</p>
+                </div>
+        
+                <p><b>Challenges with the thrown hoop-passing problem:</b></p>
+                <ul class="formatted-list">
+                    <li>The drone is slow
+                        <ul class="formatted-list">
+                            <li>Max allowed speed is 1 m/s</li>
+                        </ul>
+                    </li>
+                    <li>Gravity is strong
+                        <ul class="formatted-list">
+                            <li>The hoop is only in the air for at most 2 seconds</li>
+                        </ul>
+                    </li>
+                    <li>MoCap room loses tracking if the hoop goes above a certain height (~2m)</li>
+                    <li>Although the drone acknowledges a command, it acts on it after some random time
+                        <ul class="formatted-list">
+                            <li>Tries to solve this using forward warmup</li>
+                        </ul>
+                    </li>
+                    <li>Least Squares with few data points is susceptible to noise, even on the order of millimeters</li>
+                </ul>
+        
+                <p style="font-size: 24px; font-weight: bold;">We couldn’t get the hoop-throwing pass through to work. So we tried rolling it instead.</p>
+        
+                <h4>How to Predict Rolling Hoop Trajectory: Use Least Squares!</h4>
+                <ul class="formatted-list">
+                    <li>4 unknowns: 2 for initial velocity, and 2 for initial position
+                        <ul class="formatted-list">
+                            <li>Acceleration is known — assumed to be constantly 0 (no friction)!</li>
+                        </ul>
+                    </li>
+                    <li>First approach: 
+                        <ul class="formatted-list">
+                            <li>Determine the required velocity to go to a future point (time is known) and go at the required velocity – due to latency, required velocity isn’t enough</li>
+                        </ul>
+                    </li>
+                    <li>First approach does not work, since required velocity is not enough, due to variable latency, and even with rolling hoop, drone is very slow in general</li>
                     <ul class="formatted-list">
                         <li>Go to feasible point (within bounds of command) at top speed</li>
                     </ul>
-                <li>Feasible point is the first point that satisfies the requirement of the required velocity being the cap of $1 m/s$. This can be determined by finding the distance between the point and drone's current position, and dividing it by the known time for the hoop to reach that point.</li>
-            </ul>
+                    <li>Feasible point is the first point that satisfies the requirement of the required velocity being the cap of $1 m/s$. This can be determined by finding the distance between the point and drone's current position...</li>
+                </ul>
+            </section>
+        </section>        
 
             <div class="image-container">
                 <img src="assets/images/rolling_params.png" alt="rolling params" style="width: 200px; height: 100px;">
