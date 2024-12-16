@@ -100,7 +100,37 @@
                     <li>Asymmetrical configuration reduces ambiguity in marker identification of body</li>
                     <li>Define the origin to be the top marker on the marker configuration. Configure Vicon to publish this position to a rostopic.</li>
                 </ul>
-        
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Side by Side Images</title>
+                    <style>
+                        /* Flexbox to display images side by side */
+                        .image-container {
+                            display: flex;
+                            justify-content: center; /* Center the images */
+                            gap: 20px; /* Space between the images */
+                            margin: 20px 0;
+                        }
+                
+                        .image-container img {
+                            width: 300px; /* Adjust width as needed */
+                            height: auto; /* Maintain aspect ratio */
+                            border: 2px solid #ccc; /* Optional border */
+                        }
+                    </style>
+                </head>
+                <body>
+                
+                    <h1>Drone and Hoop with IR Markers</h1>
+                
+                    <div class="image-container">
+                        <img src="assets/images/drone.png" alt="Drone">
+                        <img src="assets/images/hoop.png" alt="Hoop">
+                    </div>
+                
+                </body>
+
                 <div class="image-container">
                     <img src="assets/images/vicon.png" alt="Vicon Tracker App">
                     <p class="image-caption">Figure 3: Visualization of drone and hoop objects on Vicon</p>
