@@ -187,3 +187,10 @@ main {
     height: 100%;
     border: none;
 }
+
+.centered-heading {
+    text-align: center;
+    font-size: 24px; /* Optional: Adjust the size of the heading */
+    color: #2C3E50; /* Optional: Adjust the color */
+    margin-bottom: 20px; /* Adds spacing between the heading and video */
+}
