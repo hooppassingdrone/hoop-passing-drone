@@ -159,6 +159,80 @@
                     <img src="assets/images/lsq.png" alt="Throwing lsq">
                     <p class="image-caption">Figure 5: This gives the equation to determine $\beta$, which is the params matrix at the bottom, where $v$ is the initial velocity and $p$ is the initial position.</p>
                 </div>
+                
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Two Videos Side by Side</title>
+                    <style>
+                        /* Scoped styles for the specific container */
+                        .special-video-wrapper {
+                            display: flex;
+                            justify-content: center;
+                            gap: 20px; /* Add space between the videos */
+                            margin: 20px 0;
+                        }
+                
+                        .special-video-wrapper iframe {
+                            width: 500px;
+                            height: 300px; /* Maintain a 16:9 aspect ratio */
+                            border: none;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Synchronized Hoop Throwing Prediction (left: vicon, right: irl) </h1>
+                    <div class="special-video-wrapper">
+                        <iframe 
+                            id="video1" 
+                            src="https://www.youtube.com/embed/b9-s8lImpeU?enablejsapi=1&autoplay=1&mute=1" 
+                            title="YouTube video player 1" 
+                            allow="autoplay; encrypted-media" 
+                            allowfullscreen>
+                        </iframe>
+                        <iframe 
+                            id="video2" 
+                            src="https://www.youtube.com/embed/klRIh0veVwc?enablejsapi=1&autoplay=1&mute=1" 
+                            title="YouTube video player 2" 
+                            allow="autoplay; encrypted-media" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                
+                    <script>
+                        // Load the YouTube IFrame API
+                        let player1, player2;
+                
+                        function onYouTubeIframeAPIReady() {
+                            player1 = new YT.Player('video1', { events: { onReady: setupPlayback } });
+                            player2 = new YT.Player('video2', { events: { onReady: setupPlayback } });
+                        }
+                
+                        function setupPlayback() {
+                            // Wait for both players to be ready
+                            if (player1 && player2) {
+                                const observer = new IntersectionObserver(entries => {
+                                    entries.forEach(entry => {
+                                        if (entry.isIntersecting) {
+                                            player1.playVideo();
+                                            player2.playVideo();
+                                        } else {
+                                            player1.pauseVideo();
+                                            player2.pauseVideo();
+                                        }
+                                    });
+                                }, { threshold: 0.5 }); // Trigger when 50% of the videos are visible
+                
+                                observer.observe(document.querySelector('.special-video-wrapper'));
+                            }
+                        }
+                
+                        // Load the API script dynamically
+                        const tag = document.createElement('script');
+                        tag.src = "https://www.youtube.com/iframe_api";
+                        document.head.appendChild(tag);
+                    </script>
+                </body>
         
                 <h4>Deciding on a Point to Fly Through:</h4>
                 <ul class="formatted-list">
