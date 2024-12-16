@@ -86,7 +86,7 @@
                 <div class="container"> 
                     <p>The goal of the project is to write up a controller that enables a DJI Tello drone to fly through a hula-hoop thrown in the air. 
                         This problem is fascinating because we are using the Motion Capture system to get accturate position estimates, instead of using vision on the drone. </p>
-                    <p>An interesting aspect of this problem is predicting the hoop's trajectory and figuring out the most optimal feasible point for the drone to pass through the hoop while its airborne.</p>
+                    <p class="highlight">An interesting aspect of this problem is predicting the hoop's trajectory and figuring out the most optimal feasible point for the drone to pass through the hoop while its airborne.</p>
                     <p>
                         This project is applicable for robotics problems involving dynamic target, such as missile tracking, where the drone must predict the missile's future trajectory, in order to better determine its future movement. This is applicable in any tracking feature, such as in sports games, where cameras must follow players and the ball, and determine the best pose to capture the game. 
                         It could also be useful for emergency dynamic obstacle avoidance, where there are sudden obstacles that are in the way, and the drone must figure out the best way to avoid it. In our problem, we aim to go to the point, but the underlying tracking is similar. 
@@ -162,13 +162,22 @@
                     <img src="assets/images/system_design.png" alt="System Design Diagram">
                     <p class="image-caption">Figure 2: Overall system design architecture</p>
                 </div>
-                <div class="container"> 
-                    <p>Some of the design choices we had to make are: </p>
-                    <ul class="formatted-list">
-                        <li>Marker configuration on hoop and drone: The marker configuration on drone mattered more because we had to maintain the weight distribution while also having an asymmetric configuration for the Vicon tracking system to be able to identify the correct markers in the correct order. If the markers are in a symmetric configuration, then it will confuse the app to determine the correct markers, since multiple markers could correspond to the same one.</li>
-                        <li> Which feasible point to pick: First, the design choice was to determine the best feasible point using a cost function with certain factors that we will try to optimize, however due to the hardware constraints, we had to pick the safest/easiest trajectory to succeed, and this design choice eliminates the priority for efficiency, but could also improve safety by giving the drone as much time as possible. However, the hoop will also be going at its fastest speed at the feasible point we will pick. </li>
-                        <li> Trajectory prediction: This is an improtant design choice, where we tried multiple things and decided to go with least squares as our main technique for determining the future trajectotry of the hoop. We also had to think about the number of past positions to use for least squares, where there is a tradeoff between speed and accuracy, since the noise of the measurements will likely affect the solution more with sparse past positions. </li>
-                    </ul>
+                <div class="container">
+                    <p>Some of the design choices we had to make are:</p>
+                    <div class="design-choices">
+                        <div class="choice-box">
+                            <h3>Marker Configuration</h3>
+                            <p>The marker configuration on drone mattered more because we had to maintain the weight distribution while also having an asymmetric configuration for the Vicon tracking system to be able to identify the correct markers in the correct order. If the markers are in a symmetric configuration, then it will confuse the app to determine the correct markers, since multiple markers could correspond to the same one.</p>
+                        </div>
+                        <div class="choice-box">
+                            <h3>Feasible Point Selection</h3>
+                            <p>First, the design choice was to determine the best feasible point using a cost function with certain factors that we will try to optimize, however due to the hardware constraints, we had to pick the safest/easiest trajectory to succeed, and this design choice eliminates the priority for efficiency, but could also improve safety by giving the drone as much time as possible. However, the hoop will also be going at its fastest speed at the feasible point we will pick.</p>
+                        </div>
+                        <div class="choice-box">
+                            <h3>Trajectory Prediction</h3>
+                            <p>This is an important design choice, where we tried multiple things and decided to go with least squares as our main technique for determining the future trajectory of the hoop. We also had to think about the number of past positions to use for least squares, where there is a tradeoff between speed and accuracy, since the noise of the measurements will likely affect the solution more with sparse past positions.</p>
+                        </div>
+                    </div>
                 </div>
             </body>
         </section>
