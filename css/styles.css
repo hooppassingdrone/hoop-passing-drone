@@ -174,7 +174,7 @@ main {
     display: flex;
     justify-content: center; /* Centers horizontally */
     align-items: center;    /* Centers vertically */
-    height: 100vh;          /* Optional: makes it full height */
+    height: 100vh;          /* Full viewport height */
 }
 
 .video-container {
@@ -182,8 +182,8 @@ main {
     padding-bottom: 56.25%; /* 16:9 ratio */
     height: 0;
     overflow: hidden;
-    width: 80%;             /* Optional: adjusts the width, can be 100% or fixed value */
-    max-width: 560px;       /* Optional: sets a maximum width */
+    width: 50%;             /* Smaller width, e.g., 50% of the parent width */
+    max-width: 300px;       /* Sets a maximum width to limit the size further */
 }
 
 .video-container iframe {
@@ -193,3 +193,4 @@ main {
     width: 100%;
     height: 100%;
 }
+
