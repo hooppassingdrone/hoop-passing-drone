@@ -76,7 +76,43 @@
 
         <section id="implementation">
             <h2>Implementation</h2>
-            <p>How the project was built and implemented.</p>
+            <p>Some of the design choices we had to make are: </p>
+            <ul>
+                <li> 69 cm diameter hoop for the drone to fly through </li>
+                <li> Drone: DJI Tello – controlled using Tello SDK, in order to fly autonomously fly through a predicted location of the hoop in the future </li>
+                <li> Mocap Room: To get exact coordinates of drone and hoop </li>
+            </ul>
+            <p>On VICON Tracker App, we could create objects for the hoop and drone based on the markers and create the body coordinate frame as well. </p>   
+            <p>Localizing the hoop: </p>
+            <ul>
+                <li> We attached 4 IR-reflecting markers to the hoop </li>
+                <li> Define the center of mass to be the average of these 4 points, which will be the midpoint of the hoop </li>
+                <li> Configure Vicon to publish this position to a rostopic. Vicon publishes points at ~125 Hz. </li>
+            </ul>
+
+            <p>Localizing the drone: </p>
+            <ul>
+                <li> We attached 5 IR-reflecting markers to the drone in an asymmetrical manner </li>
+                <li> Asymmetrical configuration reduces ambiguity in marker identification of body </li>
+                <li> Define the origin to be the top marker on the marker configuration. Configure Vicon to publish this position to a rostopic. </li>
+            </ul>
+            
+            <p>Controlling the drone using Tello SDK: </p>
+            <ul>
+                <li> Use DJITelloPy, a wrapper of the Tello SDK </li>
+                <li> Connect laptop to the Tello Wifi </li>
+                <li> Useful commands:
+                    <li> send_rc_control(left_right_velocity, forward_backward_velocity, up_down_velocity, yaw_velocity) </li>
+                    <li> >go_xyz_speed(x, y, z, speed) </li>
+                </li>
+                <li> Use ROS to transform Vicon world coordinates into drone coordinates </li>
+            </ul>
+
+
+            <div class="image-container">
+                <img src="assets/images/vicon.png" alt="Vicon Tracker App">
+                <p class="image-caption">Figure 1: Visualization of drone and hoop objects on Vicon</p>
+            </div>
             
             <!-- Video example -->
             <div class="video-container">
