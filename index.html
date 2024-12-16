@@ -55,7 +55,7 @@
         <section id="design">
             <h2>Design</h2>
             <p>Here are the main objectives/design criteria of the problem:</p>
-            <ul>
+            <ul class="formatted-list">
                 <li>Drone to pass through hoop accurately and reliably; the drone should ideally pass through the middle of the hoop.</li>
                 <li>Drone to efficiently pass through hoop. Drone should be able to pass through the hoop when feasible, and not always take the safest trajectory </li>
                 <li>Ensure adaptability based on hoop throws. Able to adapt to different hoop trajectories, in terms of speed and apex height. </li>
@@ -67,7 +67,7 @@
                 <p class="image-caption">Figure 1: Overall system design architecture</p>
             </div>
             <p>Some of the design choices we had to make are: </p>
-            <ul>
+            <ul class="formatted-list">
                 <li>Marker configuration on hoop and drone: The marker configuration on drone mattered more because we had to maintain the weight distribution while also having an asymmetric configuration for the Vicon tracking system to be able to identify the correct markers in the correct order. If the markers are in a symmetric configuration, then it will confuse the app to determine the correct markers, since multiple markers could correspond to the same one.</li>
                 <li> Which feasible point to pick: First, the design choice was to determine the best feasible point using a cost function with certain factors that we will try to optimize, however due to the hardware constraints, we had to pick the safest/easiest trajectory to succeed, and this design choice eliminates the priority for efficiency, but could also improve safety by giving the drone as much time as possible. However, the hoop will also be going at its fastest speed at the feasible point we will pick. </li>
                 <li> Trajectory prediction: This is an improtant design choice, where we tried multiple things and decided to go with least squares as our main technique for determining the future trajectotry of the hoop. We also had to think about the number of past positions to use for least squares, where there is a tradeoff between speed and accuracy, since the noise of the measurements will likely affect the solution more with sparse past positions. </li>
@@ -77,38 +77,50 @@
         <section id="implementation">
             <h2>Implementation</h2>
             <p>Some of the design choices we had to make are: </p>
-            <ul>
+            <ul class="formatted-list">
                 <li> 69 cm diameter hoop for the drone to fly through </li>
                 <li> Drone: DJI Tello – controlled using Tello SDK, in order to fly autonomously fly through a predicted location of the hoop in the future </li>
                 <li> Mocap Room: To get exact coordinates of drone and hoop </li>
             </ul>
             <p>On VICON Tracker App, we could create objects for the hoop and drone based on the markers and create the body coordinate frame as well. </p>   
             <p>Localizing the hoop: </p>
-            <ul>
+            <ul class="formatted-list">
                 <li> We attached 4 IR-reflecting markers to the hoop </li>
                 <li> Define the center of mass to be the average of these 4 points, which will be the midpoint of the hoop </li>
                 <li> Configure Vicon to publish this position to a rostopic. Vicon publishes points at ~125 Hz. </li>
             </ul>
 
             <p>Localizing the drone: </p>
-            <ul>
+            <ul class="formatted-list">
                 <li> We attached 5 IR-reflecting markers to the drone in an asymmetrical manner </li>
                 <li> Asymmetrical configuration reduces ambiguity in marker identification of body </li>
                 <li> Define the origin to be the top marker on the marker configuration. Configure Vicon to publish this position to a rostopic. </li>
             </ul>
             
             <p>Controlling the drone using Tello SDK: </p>
-            <ul>
+            <ul class="formatted-list">
                 <li> Use DJITelloPy, a wrapper of the Tello SDK </li>
                 <li> Connect laptop to the Tello Wifi </li>
                 <li>Useful commands:
-                    <ul>
+                    <ul class="formatted-list">
                         <li><code>send_rc_control(left_right_velocity, forward_backward_velocity, up_down_velocity, yaw_velocity)</code></li>
                         <li><code>go_xyz_speed(x, y, z, speed)</code></li>
                     </ul>
                 </li>
                 <li> Use ROS to transform Vicon world coordinates into drone coordinates </li>
             </ul>
+
+            
+            <p>Now, let's go through the chronological steps of the entire process for the hoop-passing controller:  </p>
+            <ol class="formatted-list">
+                <li>Drone Takeoff</li>
+                <li>Drone Warm-up (move forward as fast as possible)</li>
+                <li>Hoop is thrown into the air</li>
+                <li>Hoop Trajectory Prediction</li>
+                <li>Drone uses trajectory to determine point to go to</li>
+                <li>Drone control using Tello SDK to go to in the direction of the desired point at a desired velocity</li>
+            </ol>
+            
 
 
             <div class="image-container">
