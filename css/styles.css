@@ -194,3 +194,14 @@ main {
     color: #2C3E50; /* Optional: Adjust the color */
     margin-bottom: 20px; /* Adds spacing between the heading and video */
 }
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto; /* Centers the content horizontally */
+    width: 100%; /* Ensures container is full-width */
+    padding: 20px;
+}
