@@ -54,13 +54,24 @@
 
         <section id="design">
             <h2>Design</h2>
-            <p>Detailed design information.</p>
+            <p>Here are the main objectives/design criteria of the problem:</p>
+            <ul>
+                <li>Drone to pass through hoop accurately and reliably; the drone should ideally pass through the middle of the hoop.</li>
+                <li>Drone to efficiently pass through hoop. Drone should be able to pass through the hoop when feasible, and not always take the safest trajectory </li>
+                <li>Ensure adaptability based on hoop throws. Able to adapt to different hoop trajectories, in terms of speed and apex height. </li>
+            </ul>
             
             <!-- Image example -->
             <div class="image-container">
-                <img src="assets/images/system-design.jpg" alt="System Design Diagram">
+                <img src="assets/images/system_design.jpg" alt="System Design Diagram">
                 <p class="image-caption">Figure 1: Overall system design architecture</p>
             </div>
+            <p>Some of the design choices we had to make are: </p>
+            <ul>
+                <li>Marker configuration on hoop and drone: The marker configuration on drone mattered more because we had to maintain the weight distribution while also having an asymmetric configuration for the Vicon tracking system to be able to identify the correct markers in the correct order. If the markers are in a symmetric configuration, then it will confuse the app to determine the correct markers, since multiple markers could correspond to the same one.</li>
+                <li> Which feasible point to pick: First, the design choice was to determine the best feasible point using a cost function with certain factors that we will try to optimize, however due to the hardware constraints, we had to pick the safest/easiest trajectory to succeed, and this design choice eliminates the priority for efficiency, but could also improve safety by giving the drone as much time as possible. However, the hoop will also be going at its fastest speed at the feasible point we will pick. </li>
+                <li> Trajectory prediction: This is an improtant design choice, where we tried multiple things and decided to go with least squares as our main technique for determining the future trajectotry of the hoop. We also had to think about the number of past positions to use for least squares, where there is a tradeoff between speed and accuracy, since the noise of the measurements will likely affect the solution more with sparse past positions. </li>
+            </ul>
         </section>
 
         <section id="implementation">
