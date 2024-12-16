@@ -108,7 +108,7 @@
             </section>
         
             <section id="drone-control">
-                <h3>Drone Control and Trajectory Prediction</h3>
+                <h3>Drone Control and Trajectory Prediction for Thrown Hoop</h3>
                 <p>Controlling the drone using Tello SDK:</p>
                 <ul class="formatted-list">
                     <li>Use DJITelloPy, a wrapper of the Tello SDK</li>
@@ -184,8 +184,8 @@
                 </ul>
         
                 <p style="font-size: 24px; font-weight: bold;">We couldn’t get the hoop-throwing pass through to work. So we tried rolling it instead.</p>
-        
-                <h4>How to Predict Rolling Hoop Trajectory: Use Least Squares!</h4>
+                <h4>Drone Control and Trajectory Prediction for Rolling Hoop</h3>
+                <p><b>How to Predict Rolling Hoop Trajectory: Use Least Squares!</b><p>
                 <ul class="formatted-list">
                     <li>4 unknowns: 2 for initial velocity, and 2 for initial position
                         <ul class="formatted-list">
@@ -203,13 +203,14 @@
                     </ul>
                     <li>Feasible point is the first point that satisfies the requirement of the required velocity being the cap of $1 m/s$. This can be determined by finding the distance between the point and drone's current position...</li>
                 </ul>
+
+                <div class="image-container">
+                    <img src="assets/images/rolling_params.png" alt="rolling params" style="width: 200px; height: 100px;">
+                    <p class="image-caption">Figure 7: Unknown params to calculate using least squares. $v$ is initial velocity and $p$ is initial position.</p>
+                </div>      
             </section>
         </section>        
-
-            <div class="image-container">
-                <img src="assets/images/rolling_params.png" alt="rolling params" style="width: 200px; height: 100px;">
-                <p class="image-caption">Figure 7: Unknown params to calculate using least squares. $v$ is initial velocity and $p$ is initial position.</p>
-            </div>            
+      
 
             <!-- Video example -->
             <div class="video-container">
