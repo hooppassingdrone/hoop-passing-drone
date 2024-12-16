@@ -167,7 +167,7 @@
                 </div>
         
                 <p><b>The solution is using LEAST SQUARES:</b></p>
-                <p>We are trying to solve $$x(t) = x_0 + v_0t + 0.5at^2$$</p>
+                <p>We are trying to solve for unknowns in $$x(t) = x_0 + v_0t + \frac{1}{2}at^2$$</p>
                 <p>6 unknowns: 3 for initial velocity, and 3 for initial position. Acceleration is known!</p>
         
                 <div class="image-container">
@@ -292,6 +292,7 @@
                     <li>4 unknowns: 2 for initial velocity, and 2 for initial position
                         <ul class="formatted-list">
                             <li>Acceleration is known — assumed to be constantly 0 (no friction)!</li>
+                            <li>We are trying to solve for unknowns in $$x(t) = x_0 + v_0t$$</li>
                         </ul>
                     </li>
                     <li>First approach: 
@@ -414,25 +415,29 @@
                 </div>
             </div>
 
-            <p> We were succeffully able to make the drone fly through a rolling hoop pretty reliably. There are certain constraints still, such as the speed of the hoop, and the distance btween the hoop and the drone. This is solely due to the <b> HARDWARE CONSTRAINTS</b> of the drone. Due to this issue, we were not able to meet the design criteria of getting the drone to fly through a hoop in the air.  </p>
-            <p> However, we were still able to predict the hoop trajectory well, and get the drone to fly in the right direction of the "feasible" point, however due to the latency and its inability to fly quickly, the drone would always be too late.</p>
-            
-            <!-- Multiple images example -->
-            <div class="image-gallery">
-                <img src="assets/images/result-1.jpg" alt="Result Visualization 1">
-                <img src="assets/images/result-2.jpg" alt="Result Visualization 2">
-                <p class="image-caption">Figures showing project results</p>
-            </div>
+            <p> We were successfully able to make the drone fly through a rolling hoop pretty reliably, but we still could not get the hoop to fly through a hoop in the air. </p>
         </section>
 
         <section id="conclusion">
             <h2>Conclusion</h2>
-            <p>Final thoughts and project summary.</p>
-            
-            <!-- Complex equation example -->
-            <p>Our performance can be mathematically described as:
-                $$\text{Performance} = \int_0^T \left(\frac{\text{Output}_t}{\text{Input}_t}\right) dt$$
-            </p>
+            <p>Like we said, we could only get the hoop to fly through a rolling hoop. There are certain constraints still, such as the speed of the hoop, and the distance btween the hoop and the drone. This is solely due to the <b> HARDWARE CONSTRAINTS</b> of the drone. Due to this issue, we were not able to meet the design criteria of getting the drone to fly through a hoop in the air.  
+            However, we were still able to predict the hoop trajectory well, and get the drone to fly in the right direction of the "feasible" point. However due to the latency and its inability to fly quickly, the drone would always be too late.</p>
+            <p> We encountered difficulties with the drone control, since it is so limited in velocity control, and it has some variable time latency, so it was diffciult handling the noise in the control commands, plus the delay for the drone to follow the command. </p>
+            <p> One hack/flaw we used was to simply pick the first feasible point that is within the required velocity limit, which may not lead to the most smooth hoop passing trajectory of the drone, however it should still work reliably, since we throw the hoop in front of the drone, so the plane of the hoop where the drone can pass will likely always provide an angle for the drone to pass through it. </p>
+            <p> Takeaways and Improvements: </p>
+            <ul>
+                <li>Use a faster drone in the future</li>
+                <li>Filter the points used for least squares
+                    <ul>
+                        <li>Have worked on this more and made progress in getting better trajectory predictions, particularly for the thrown hoop case</li>
+                    </ul>
+                </li>
+                <li>Implement low-latency, real-time control policy, beyond the <code>go_xyz</code> function</li>
+                <li>Fuse MoCap data for accurate control</li>
+                <li>Implemented Kalman filter for better target estimation – needs improvement</li>
+                <li>Use the camera mounted on the drone to predict the hoop’s location based on its radius and forecast its trajectory</li>
+                <li>Freefall detection for hoop trajectory prediction - “Press Enter to Go” workaround</li>
+            </ul>
         </section>
 
         <section id="team">
