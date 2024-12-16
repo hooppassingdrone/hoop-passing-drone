@@ -88,20 +88,72 @@ nav a {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
 }
 
+
+main {
+    padding: 20px;
+}
+
+/* Image Container Styling */
 .image-container {
-    text-align: center; /* Center the content within the container */
-    margin: 20px 0; /* Add some spacing around the container */
+    text-align: center; /* Center the image and caption */
+    margin: 20px 0; /* Add spacing around images */
 }
 
 .image-container img {
-    max-width: 50%; /* Adjust the size of the image to 50% of the container width */
-    height: auto; /* Maintain the aspect ratio */
+    max-width: 100%; /* Ensure the image is responsive */
+    width: 60%; /* Set a specific width, e.g., 60% of the parent container */
+    height: auto; /* Maintain aspect ratio */
     border-radius: 5px; /* Optional: Add rounded corners */
+    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
 }
 
 .image-caption {
-    font-size: 14px; /* Set the font size for the caption */
-    color: #555; /* Optional: Use a subtle color for the text */
-    margin-top: 10px; /* Add spacing between the image and the caption */
-    font-style: italic; /* Optional: Italicize the caption for style */
+    font-size: 14px; /* Adjust font size */
+    color: #555; /* Set a subtle color */
+    margin-top: 8px; /* Add space between image and caption */
+    text-align: center; /* Center the caption */
+    font-style: italic; /* Optional: Italicize captions for style */
+}
+
+/* Video Container Styling */
+.video-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.video-caption {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Image Gallery Styling */
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.image-gallery img {
+    max-width: 30%; /* Set a fixed width for gallery images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Team Gallery Styling */
+.team-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.team-gallery img {
+    max-width: 150px; /* Limit the size of team images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Make images circular */
+    border: 2px solid #0078D7; /* Add a border */
 }
