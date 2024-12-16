@@ -131,11 +131,43 @@
                 <p class="image-caption">Figure 4: The motion along each axis can be modeled as a parabola. Trying to find a parameter matrix that satisfies the above equation. </p>
             </div>
 
-            <p>The solution is using LEAST SQUARES: </p>
-            <p> We are trying to solve $$x(t) = x_0 + v_0*t + 0.5a*t^2$$ </p>
+            <p><b>The solution is using LEAST SQUARES:</b> </p>
+            <p> We are trying to solve $$x(t) = x_0 + v_0t + 0.5at^2$$ </p>
             <p> 6 unknowns: 3 for initial velocity, and 3 for initial position. Acceleration is known! </p>
-
-
+            
+            <p> Deciding on a point to fly through: </p>
+            <ul class="formatted-list">
+                <li> Point that the hoop will be at .1 seconds before hitting the ground </li>
+                <li>Gives the drone the most time to reach it
+                    <ul class="formatted-list">
+                        <li>The drone is <b>slow</b>, so this is important </li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <p> <b>Challenges with the thrown hoop-passing problem: </b>  </p>
+            <ul class="formatted-list">
+                <li>The drone is slow
+                    <ul>
+                        <li>Max allowed speed is 1 m/s</li>
+                    </ul>
+                </li>
+                <li>Gravity is strong
+                    <ul>
+                        <li>The hoop is only in the air for at most 2 seconds</li>
+                    </ul>
+                </li>
+                <li>MoCap room loses tracking if the hoop goes above a certain height (~2m)</li>
+                <li>Although the drone acknowledges a command, it acts on it after some random time
+                    <ul>
+                        <li>Tries to solve this using forward warmup</li>
+                    </ul>
+                </li>
+                <li>Least Squares with few data points is susceptible to noise, even on the order of millimeters
+                </li>
+            </ul>
+            
+            
             <div class="image-container">
                 <img src="assets/images/lsq.png" alt="Throwing lsq">
                 <p class="image-caption">Figure 5: This gives the equation to determine $\beta$, which is the params matrix at the bottom, where $v$ is the initial velocity and $p$ is the initial position. </p>
