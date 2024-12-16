@@ -35,21 +35,66 @@
     <main>
         <section id="introduction">
             <h2>Introduction</h2>
-            <p>The goal of the project is to write up a controller that enables a DJI Tello drone to fly through a hula-hoop thrown in the air. 
-                This problem is fascinating because we are using the Motion Capture system to get accturate position estimates, instead of using vision on the drone. </p>
-            <p>An interesting aspect of this problem is predicting the hoop's trajectory and figuring out the most optimal feasible point for the drone to pass through the hoop while its airborne.</p>
-            <p>
-                This project is applicable for robotics problems involving dynamic target, such as missile tracking, where the drone must predict the missile's future trajectory, in order to better determine its future movement. This is applicable in any tracking feature, such as in sports games, where cameras must follow players and the ball, and determine the best pose to capture the game. 
-                It could also be useful for emergency dynamic obstacle avoidance, where there are sudden obstacles that are in the way, and the drone must figure out the best way to avoid it. In our problem, we aim to go to the point, but the underlying tracking is similar. 
-            </p>
-            <div class="image-container">
-                <img src="assets/images/goal.png" alt="Goal">
-                <p class="image-caption">Figure 1: Overall Goal</p>
-            </div>
-            <!-- Example of a display equation -->
-            <p>The key kinematic equation for our robot's motion is:
-                $$\vec{v} = \frac{d\vec{r}}{dt} = \lim_{\Delta t \to 0} \frac{\Delta \vec{r}}{\Delta t}$$
-            </p>
+            <head>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 20px;
+                        background-color: #f4f4f9;
+                        color: #333;
+                    }
+            
+                    h1 {
+                        text-align: center;
+                        color: #2C3E50;
+                        margin-bottom: 30px;
+                    }
+            
+                    p {
+                        line-height: 1.6;
+                        font-size: 16px;
+                        margin-bottom: 20px;
+                    }
+            
+                    b {
+                        color: #e74c3c; /* Highlight 'HARDWARE CONSTRAINTS' in red */
+                    }
+            
+                    .container {
+                        max-width: 800px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        background-color: white;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                    }
+            
+                    .highlight {
+                        background-color: #f9f9f9;
+                        border-left: 4px solid #e74c3c;
+                        padding-left: 10px;
+                        margin-bottom: 20px;
+                    }
+            
+                    .highlight p {
+                        font-style: italic;
+                        color: #7f8c8d;
+                    }
+                </style>
+            </head>
+            <body>
+                <p>The goal of the project is to write up a controller that enables a DJI Tello drone to fly through a hula-hoop thrown in the air. 
+                    This problem is fascinating because we are using the Motion Capture system to get accturate position estimates, instead of using vision on the drone. </p>
+                <p>An interesting aspect of this problem is predicting the hoop's trajectory and figuring out the most optimal feasible point for the drone to pass through the hoop while its airborne.</p>
+                <p>
+                    This project is applicable for robotics problems involving dynamic target, such as missile tracking, where the drone must predict the missile's future trajectory, in order to better determine its future movement. This is applicable in any tracking feature, such as in sports games, where cameras must follow players and the ball, and determine the best pose to capture the game. 
+                    It could also be useful for emergency dynamic obstacle avoidance, where there are sudden obstacles that are in the way, and the drone must figure out the best way to avoid it. In our problem, we aim to go to the point, but the underlying tracking is similar. 
+                </p>
+                <div class="image-container">
+                    <img src="assets/images/goal.png" alt="Goal">
+                    <p class="image-caption">Figure 1: Overall Goal</p>
+                </div>
+            </body>
         </section>
 
         <section id="design">
