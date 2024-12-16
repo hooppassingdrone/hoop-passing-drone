@@ -170,11 +170,20 @@ main {
     margin-bottom: 5px; /* Adds space between list items */
 }
 
+.video-wrapper {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;    /* Centers vertically */
+    height: 100vh;          /* Optional: makes it full height */
+}
+
 .video-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 ratio */
     height: 0;
     overflow: hidden;
+    width: 80%;             /* Optional: adjusts the width, can be 100% or fixed value */
+    max-width: 560px;       /* Optional: sets a maximum width */
 }
 
 .video-container iframe {
