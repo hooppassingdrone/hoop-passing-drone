@@ -96,6 +96,11 @@
                 <li> Asymmetrical configuration reduces ambiguity in marker identification of body </li>
                 <li> Define the origin to be the top marker on the marker configuration. Configure Vicon to publish this position to a rostopic. </li>
             </ul>
+
+            <div class="image-container">
+                <img src="assets/images/vicon.png" alt="Vicon Tracker App">
+                <p class="image-caption">Figure 3: Visualization of drone and hoop objects on Vicon</p>
+            </div>
             
             <p>Controlling the drone using Tello SDK: </p>
             <ul class="formatted-list">
@@ -109,12 +114,6 @@
                 </li>
                 <li> Use ROS to transform Vicon world coordinates into drone coordinates </li>
             </ul>
-
-
-            <div class="image-container">
-                <img src="assets/images/vicon.png" alt="Vicon Tracker App">
-                <p class="image-caption">Figure 3: Visualization of drone and hoop objects on Vicon</p>
-            </div>
             
             <p>Now, let's go through the chronological steps of the entire process for the hoop-passing controller:  </p>
             <ol class="formatted-list">
@@ -130,6 +129,16 @@
             <div class="image-container">
                 <img src="assets/images/hoop_traj.png" alt="Hoop Trajectory Prediction">
                 <p class="image-caption">Figure 4: The motion along each axis can be modeled as a parabola. Trying to find a parameter matrix that satisfies the above equation. </p>
+            </div>
+
+            <p>The solution is using LEAST SQUARES: </p>
+            <p> We are trying to solve $$x(t) = x_0 + v_0*t + 0.5a*t^2$$ </p>
+            <p> 6 unknowns: 3 for initial velocity, and 3 for initial position. Acceleration is known! </p>
+
+
+            <div class="image-container">
+                <img src="assets/images/lsq.png" alt="Throwing lsq">
+                <p class="image-caption">Figure 5: This gives the equation to determine $\beta$, which is the params matrix at the bottom, where $v$ is the initial velocity and $p$ is the initial position. </p>
             </div>
             
             <!-- Video example -->
