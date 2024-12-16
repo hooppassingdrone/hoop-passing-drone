@@ -172,20 +172,19 @@ main {
 
 .video-wrapper {
     display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center;    /* Centers vertically */
-    height: 100vh;          /* Full viewport height */
+    justify-content: center; /* Center the video horizontally */
+    margin: 20px 0;          /* Add some top and bottom margin if needed */
 }
 
 .video-container {
-    position: relative;
-    width: 300px;           /* Set fixed width for smaller size */
-    height: 169px;          /* Height based on 16:9 aspect ratio (300px × 9/16) */
+    width: 500px;            /* Fixed width */
+    height: 300px;           /* Fixed height based on 16:9 ratio */
     overflow: hidden;
 }
 
 .video-container iframe {
-    width: 100%;
+    width: 100%;             /* Fill the container */
     height: 100%;
     border: none;
 }
+
