@@ -220,7 +220,82 @@
                 <div class="image-container">
                     <img src="assets/images/rolling_params.png" alt="rolling params" style="width: 200px; height: 100px;">
                     <p class="image-caption">Figure 7: Unknown params to calculate using least squares. $v$ is initial velocity and $p$ is initial position.</p>
-                </div>      
+                </div>   
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Two Videos Side by Side</title>
+                    <style>
+                        /* Scoped styles for the specific container */
+                        .special-video-wrapper {
+                            display: flex;
+                            justify-content: center;
+                            gap: 20px; /* Add space between the videos */
+                            margin: 20px 0;
+                        }
+                
+                        .special-video-wrapper iframe {
+                            width: 300px;
+                            height: 169px; /* Maintain a 16:9 aspect ratio */
+                            border: none;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Two Synchronized Videos</h1>
+                    <div class="special-video-wrapper">
+                        <iframe 
+                            id="video1" 
+                            src="https://www.youtube.com/embed/A1N94Kl4BAw?si=CPMkj68RLLcxyRc2" 
+                            title="YouTube video player 1" 
+                            allow="autoplay; encrypted-media" 
+                            allowfullscreen>
+                        </iframe>
+                        <iframe 
+                            id="video2" 
+                            src="https://www.youtube.com/embed/kNtxFflnSr8?si=3SLn056bwEs6N8Su" 
+                            title="YouTube video player 2" 
+                            allow="autoplay; encrypted-media" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                
+                    <script>
+                        // Load the YouTube IFrame API
+                        let player1, player2;
+                
+                        function onYouTubeIframeAPIReady() {
+                            player1 = new YT.Player('video1', { events: { onReady: setupPlayback } });
+                            player2 = new YT.Player('video2', { events: { onReady: setupPlayback } });
+                        }
+                
+                        function setupPlayback() {
+                            // Wait for both players to be ready
+                            if (player1 && player2) {
+                                const observer = new IntersectionObserver(entries => {
+                                    entries.forEach(entry => {
+                                        if (entry.isIntersecting) {
+                                            player1.playVideo();
+                                            player2.playVideo();
+                                        } else {
+                                            player1.pauseVideo();
+                                            player2.pauseVideo();
+                                        }
+                                    });
+                                }, { threshold: 0.5 }); // Trigger when 50% of the videos are visible
+                
+                                observer.observe(document.querySelector('.special-video-wrapper'));
+                            }
+                        }
+                
+                        // Load the API script dynamically
+                        const tag = document.createElement('script');
+                        tag.src = "https://www.youtube.com/iframe_api";
+                        document.head.appendChild(tag);
+                    </script>
+                </body>
+                <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/kNtxFflnSr8?si=3SLn056bwEs6N8Su" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/A1N94Kl4BAw?si=CPMkj68RLLcxyRc2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
             </section>
         </section>        
       
