@@ -442,14 +442,72 @@
 
         <section id="team">
             <h2>Team</h2>
-            <p>Team member information.</p>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Team Information</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        line-height: 1.6;
+                        margin: 20px;
+                    }
             
-            <!-- Team member images -->
-            <div class="team-gallery">
-                <img src="assets/images/team-member-1.jpg" alt="Team Member 1">
-                <img src="assets/images/team-member-2.jpg" alt="Team Member 2">
-                <img src="assets/images/team-member-3.jpg" alt="Team Member 3">
-            </div>
+                    h2 {
+                        color: #2C3E50;
+                        text-align: center;
+                    }
+            
+                    .team-container {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-around;
+                        gap: 20px;
+                    }
+            
+                    .team-member {
+                        background-color: #ECF0F1;
+                        padding: 20px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        width: 250px;
+                        text-align: center;
+                    }
+            
+                    .team-member h3 {
+                        margin-bottom: 10px;
+                        color: #2980B9;
+                    }
+            
+                    .team-member p {
+                        color: #34495E;
+                    }
+                </style>
+            </head>
+            <body>
+            
+                <h2>Meet Our Team</h2>
+            
+                <div class="team-container">
+                    <div class="team-member">
+                        <h3>Nitin</h3>
+                        <p>EECS MS student interested in the intersection of Deep Learning and Robotics, with experience in ROS and machine learning.</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Satwik</h3>
+                        <p>EECS MS student with a passion for real-world robotics applications and experience developing autonomous drone software stacks for various competitions.</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Evan</h3>
+                        <p>4th Year EECS Undergrad student studying empowerment, reward learning, and reinforcement learning.</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>Aryan</h3>
+                        <p>5th Year EECS MS student interested in Reinforcement Learning, Robotics, and Computer Vision.</p>
+                    </div>
+                </div>
+            
+            </body>
         </section>
 
         <section id="additional-materials">
