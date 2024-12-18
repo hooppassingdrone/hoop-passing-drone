@@ -584,12 +584,12 @@
             <body>
             
                 <div class="container">            
-                    <p>Like we said, we could only get the hoop to fly through a rolling hoop. There are certain constraints still, such as the speed of the hoop, and the distance between the hoop and the drone. This is solely due to the <b>HARDWARE CONSTRAINTS</b> of the drone. Due to this issue, we were not able to meet the design criteria of getting the drone to fly through a hoop in the air.</p>
+                    <p>As mentioned, we could only get the hoop to fly through a rolling hoop. There are certain constraints still, such as the speed of the hoop, and the distance between the hoop and the drone. This is solely due to the <b>HARDWARE CONSTRAINTS</b> of the drone. Due to this issue, we were not able to meet the design criteria of getting the drone to fly through a hoop in the air.</p>
             
                     <p>However, we were still able to predict the hoop trajectory well, and get the drone to fly in the right direction of the "feasible" point. However, due to the latency and its inability to fly quickly, the drone would always be too late.</p>
             
                     <p class="highlight">
-                        We encountered difficulties with the drone control, since it is so limited in velocity control, and it has some variable time latency. It was difficult handling the noise in the control commands, plus the delay for the drone to follow the command.
+                        We encountered difficulties with the drone control, since it is very limited in control (can only control velocity of drone, no pitch/roll control), and it has some variable time latency. It was difficult handling the noise in the control commands, plus the delay for the drone to follow the command.
                     </p>
             
                     <p>One hack/flaw we used was to simply pick the first feasible point that is within the required velocity limit, which may not lead to the most smooth hoop passing trajectory of the drone. However, it should still work reliably, since we throw the hoop in front of the drone, so the plane of the hoop where the drone can pass will likely always provide an angle for the drone to pass through it.</p>
