@@ -207,7 +207,8 @@
             <div class="container">
                 <p>We combine trajectory prediction and motion planning to autonomously fly a DJI Tello drone through a rolled hula-hoop.
                     By using a motion capture room, we are able to exactly localize the hoop, infer its velocity, and predict its trajectory.
-                    The drone's position is determined and a goal point is converted to the drone's frame of reference.</p>
+                    The drone's position is determined and a goal point is converted to the drone's frame of reference.
+                </p>
                 <p>Our initial plan was to fly the drone through a thrown hoop, however,
                     the slow speed of the drone (1 m/s) made it impossible for the drone to reach the hoop before it hit the ground.
                     We expect that a faster drone would be able to fly through a hoop mid-air.
@@ -493,7 +494,8 @@
                 </div>
             </div>
             <div class="container">
-                <p class="highlighted-text">We were successfully able to make the drone fly through a rolling hoop fairly reliably, but we still could not get the hoop to fly through a hoop in the air.</p>
+                <p class="highlighted-text">The drone reliably flew through the rolling hoop, from any starting configuration.
+                    We were able to send the drone to the correct position for a thrown hoop, however it was too slow and would arrive after the hoop had landed.</p>
             </div>       
          </div>
 
@@ -502,7 +504,7 @@
             <div class="container">
                 <p>As mentioned, we could only get the hoop to fly through a rolling hoop. There are certain constraints still, such as the speed of the hoop, and the distance between the hoop and the drone. This is solely due to the hardware constraints of the drone. Due to this issue, we were not able to meet the design criteria of getting the drone to fly through a hoop in the air.</p>
 
-                <p>However, we were still able to predict the hoop trajectory well, and get the drone to fly in the right direction of the "feasible" point. However, due to the latency and its inability to fly quickly, the drone would always be too late.</p>
+                <p>We were still able to predict the hoop trajectory well, and get the drone to fly in the right direction of the "feasible" point. However, due to the latency and its inability to fly quickly, the drone would always be too late.</p>
 
                 <p class="highlight">
                     We encountered difficulties with the drone control, since it is very limited in control (can only control velocity of drone, no pitch/roll control), and it has some variable time latency. It was difficult handling the noise in the control commands, plus the delay for the drone to follow the command.
