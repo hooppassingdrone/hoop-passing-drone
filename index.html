@@ -17,10 +17,173 @@
             }
         });
     </script>
+
+    <script>
+        // Load the YouTube IFrame API
+        let player1, player2;
+
+        function onYouTubeIframeAPIReady() {
+            player1 = new YT.Player('video1', { events: { onReady: setupPlayback } });
+            player2 = new YT.Player('video2', { events: { onReady: setupPlayback } });
+        }
+
+        function setupPlayback() {
+            // Wait for both players to be ready
+            if (player1 && player2) {
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            player1.playVideo();
+                            player2.playVideo();
+                        } else {
+                            player1.pauseVideo();
+                            player2.pauseVideo();
+                        }
+                    });
+                }, { threshold: 0.5 }); // Trigger when 50% of the videos are visible
+
+                observer.observe(document.querySelector('.special-video-wrapper'));
+            }
+        }
+
+        // Load the API script dynamically
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
+    </script>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header, #content {
+            margin: auto;
+            max-width: 80em;
+            box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.17);
+        }
+
+        h1 {
+            text-align: center;
+            /*color: #2C3E50;*/
+            margin-bottom: 30px;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background-color: white;
+            /*border-radius: 8px;*/
+            /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+        }
+
+        #additional-materials {
+            padding-bottom: 2em;
+            margin-bottom:3em;
+        }
+
+        .highlight {
+            background-color: #f9f9f9;
+            border-left: 4px solid #e74c3c;
+            padding-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        .highlight p {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .authors {
+            color: white;
+        }
+
+        .special-video-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Add space between the videos */
+            margin: 20px 0;
+        }
+
+        .special-video-wrapper iframe {
+            width: 500px;
+            height: 300px; /* Maintain a 16:9 aspect ratio */
+            border: none;
+        }
+
+
+        .team-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .team-member {
+            background-color: #ECF0F1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+        }
+
+        .team-member h3 {
+            margin-bottom: 10px;
+            color: #2980B9;
+        }
+
+        .team-member p {
+            color: #34495E;
+        }
+
+        .resources {
+            list-style-type: none;
+        }
+
+        .resources li {
+            background-color: #ecf0f1;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .resources li a {
+            text-decoration: none;
+            color: #2980b9;
+            font-size: 16px;
+        }
+
+        .resources li a:hover {
+            text-decoration: underline;
+        }
+
+        .resources li .description {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        #content {
+            background-color: white;
+            padding: 0em 2em;
+        }
+
+        .section {
+            padding-top: 2em;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1 style="color: white;">Hoop-passing Drone</h1>
+        <p class="authors">Yoga Satwik Chappidi, Nitin Vegesna, Evan Ellis, Aryan Jain</p>
         <nav>
             <a href="#introduction">Introduction</a>
             <a href="#design">Design</a>
@@ -32,131 +195,41 @@
         </nav>
     </header>
 
-    <main>
-        <section id="introduction">
+    <div id="content">
+        <div id="introduction" class="section">
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/JId0C3I5qnM?si=BoBYL7kzU4QryR5i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+
             <h2>Introduction</h2>
-            <head>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        margin: 20px;
-                        background-color: #f4f4f9;
-                        color: #333;
-                    }
-            
-                    h1 {
-                        text-align: center;
-                        color: #2C3E50;
-                        margin-bottom: 30px;
-                    }
-            
-                    p {
-                        line-height: 1.6;
-                        font-size: 16px;
-                        margin-bottom: 20px;
-                    }
-            
-                    b {
-                        color: #e74c3c; /* Highlight 'HARDWARE CONSTRAINTS' in red */
-                    }
-            
-                    .container {
-                        max-width: 800px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        background-color: white;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                    }
-            
-                    .highlight {
-                        background-color: #f9f9f9;
-                        border-left: 4px solid #e74c3c;
-                        padding-left: 10px;
-                        margin-bottom: 20px;
-                    }
-            
-                    .highlight p {
-                        font-style: italic;
-                        color: #7f8c8d;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container"> 
-                    <p>The goal of the project is to write up a controller that enables a DJI Tello drone to fly through a hula-hoop thrown in the air. 
-                        This problem is fascinating because we are using the Motion Capture system to get accturate position estimates, instead of using vision on the drone. </p>
-                    <p class="highlight">An interesting aspect of this problem is predicting the hoop's trajectory and figuring out the most optimal feasible point for the drone to pass through the hoop while its airborne.</p>
-                    <p>
-                        This project is applicable for robotics problems involving dynamic target, such as missile tracking, where the drone must predict the missile's future trajectory, in order to better determine its future movement. This is applicable in any tracking feature, such as in sports games, where cameras must follow players and the ball, and determine the best pose to capture the game. 
-                        It could also be useful for emergency dynamic obstacle avoidance, where there are sudden obstacles that are in the way, and the drone must figure out the best way to avoid it. In our problem, we aim to go to the point, but the underlying tracking is similar. 
-                    </p>
-                </div>
-                <div class="image-container">
-                    <img src="assets/images/goal.png" alt="Goal">
-                    <p class="image-caption">Figure 1: Overall Goal</p>
-                </div>
+            <div class="container">
+                <p>We combine trajectory prediction and motion planning to autonomously fly a DJI Tello drone through a rolled hula-hoop.
+                    By using a motion capture room, we are able to exactly localize the hoop, infer its velocity, and predict its trajectory.
+                    The drone's position is determined and a goal point is converted to the drone's frame of reference.</p>
+                <p>Our initial plan was to fly the drone through a thrown hoop, however,
+                    the slow speed of the drone (1 m/s) made it impossible for the drone to reach the hoop before it hit the ground.
+                    We expect that a faster drone would be able to fly through a hoop mid-air.
+                </p>
 
-                <div class="video-wrapper">
-                    <div class="video-container">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/JId0C3I5qnM?si=BoBYL7kzU4QryR5i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </body>
-        </section>
+                <p>This system is applicable in any tracking feature, such as in sports games, where cameras must follow players and the ball, and determine the best pose to capture the game.
+                    It could also be useful for emergency dynamic obstacle avoidance, where there are sudden obstacles that are in the way, and the drone must figure out the best way to avoid it by inferring its path.
+                    In our problem, we aim to go to the point, but the underlying tracking is similar.</p>
+                <p>To encourage future development, we release our code at <a href="https://github.com/festusev/HulaHoopDrone">https://github.com/festusev/HulaHoopDrone</a>.</p>
+            </div>
 
-        <section id="design">
+            <div class="image-container">
+                <img src="assets/images/goal.png" alt="Goal">
+                <p class="image-caption">Figure 1. The desired behavior of the system.</p>
+            </div>
+        </div>
+
+        <div id="design" class="section">
             <h2>Design</h2>
-            <head>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        margin: 20px;
-                        background-color: #f4f4f9;
-                        color: #333;
-                    }
-            
-                    h1 {
-                        text-align: center;
-                        color: #2C3E50;
-                        margin-bottom: 30px;
-                    }
-            
-                    p {
-                        line-height: 1.6;
-                        font-size: 16px;
-                        margin-bottom: 20px;
-                    }
-            
-                    b {
-                        color: #e74c3c; /* Highlight 'HARDWARE CONSTRAINTS' in red */
-                    }
-            
-                    .container {
-                        max-width: 800px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        background-color: white;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                    }
-            
-                    .highlight {
-                        background-color: #f9f9f9;
-                        border-left: 4px solid #e74c3c;
-                        padding-left: 10px;
-                        margin-bottom: 20px;
-                    }
-            
-                    .highlight p {
-                        font-style: italic;
-                        color: #7f8c8d;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container"> 
-                    <p>Here are the main objectives/design criteria of the problem:</p>
+            <div>
+                <div class="container">
+                    <p>We had three main objectives/design criteria:</p>
                     <ul class="formatted-list">
                         <li>Drone to pass through hoop accurately and reliably; the drone should ideally pass through the middle of the hoop.</li>
                         <li>Drone to efficiently pass through hoop. Drone should be able to pass through the hoop when feasible, and not always take the safest trajectory </li>
@@ -166,34 +239,44 @@
                 <!-- Image example -->
                 <div class="image-container">
                     <img src="assets/images/system_design.png" alt="System Design Diagram">
-                    <p class="image-caption">Figure 2: Overall system design architecture</p>
+                    <p class="image-caption">Figure 2: Input/Output flow of the system. Vicon publishes MoCap data at 125Hz.</p>
                 </div>
                 <div class="container">
-                    <p>Some of the design choices we had to make are:</p>
+                    <p>We made several design decisions that were critical for successfully flying through the hoop:</p>
                     <div class="design-choices">
                         <div class="choice-box">
-                            <h3>Marker Configuration</h3>
-                            <p>The marker configuration on drone mattered more because we had to maintain the weight distribution while also having an asymmetric configuration for the Vicon tracking system to be able to identify the correct markers in the correct order. If the markers are in a symmetric configuration, then it will confuse the app to determine the correct markers, since multiple markers could correspond to the same one.</p>
-                        </div>
-                        <div class="choice-box">
-                            <h3>Feasible Point Selection</h3>
-                            <p>First, the design choice was to determine the best feasible point using a cost function with certain factors that we will try to optimize, however due to the hardware constraints, we had to pick the safest/easiest trajectory to succeed, and this design choice eliminates the priority for efficiency, but could also improve safety by giving the drone as much time as possible. However, the hoop will also be going at its fastest speed at the feasible point we will pick.</p>
+                            <h3>Reflectors Configuration</h3>
+                            <p>Motion Capture relies on infrared (IR) reflectors which are attached to an object to track it.
+                                We attached four reflectors symmetrically to the hoop, and designated the mean position as the position of the hoop's center.
+                                Determining a marker configuration for the drone was more tricky because we had to maintain the weight distribution, or the drone would be unstable while flying.
+                                It was also important to have an asymmetric configuration for the Vicon tracking system to be able to identify the orientation of the drone.
+                                If the reflectors are in a symmetric configuration, there may be two or even four possible orientations of the drone.</p>
                         </div>
                         <div class="choice-box">
                             <h3>Trajectory Prediction</h3>
-                            <p>This is an important design choice, where we tried multiple things and decided to go with least squares as our main technique for determining the future trajectory of the hoop. We also had to think about the number of past positions to use for least squares, where there is a tradeoff between speed and accuracy, since the noise of the measurements will likely affect the solution more with sparse past positions.</p>
+                            <p>To predict the trajectory of the hoop, we kept a buffer of its previous positions.
+                                Assuming that the errors in the position estimate were Gaussian and that the trajectory was best fit by a parabola, we used least squares to estimate the hoop's initial position, velocity, and acceleration.
+                                Using these parameters, we predicted the hoop's positions for the next five seconds.
+                                We experimented with different strategies for clipping the position buffer, where there is a tradeoff between speed and accuracy, as well as a danger of using points that are from when the hoop was at rest.
+                            </p>
+                        </div>
+                        <div class="choice-box">
+                            <h3>Feasible Point Selection</h3>
+                            <p>We experimented with several methods for determining the goal point that the drone would fly through.
+                            To compensate for the slow speed of the drone, we used the point the hoop would be at in three seconds.
+                            This gave the highest success rate because the drone had time to accelerate and reach the position simultaneously with the hoop.</p>
                         </div>
                     </div>
                 </div>
-            </body>
-        </section>
+            </div>
+        </div>
 
-        <section id="implementation">
+        <div id="implementation" class="section">
             <h2>Implementation</h2>
         
-            <section id="hardware-setup">
+            <div id="hardware-setup">
                 <h3>Hardware Setup and Localization</h3>
-                <p>Some of the design choices we had to make are: </p>
+                <p>We used the following hardware: </p>
                 <ul class="formatted-list">
                     <li>69 cm diameter hoop for the drone to fly through</li>
                     <li>Drone: DJI Tello – controlled using Tello SDK, in order to fly autonomously through a predicted location of the hoop in the future</li>
@@ -201,14 +284,14 @@
                 </ul>
                 <p>On VICON Tracker App, we could create objects for the hoop and drone based on the markers and create the body coordinate frame as well.</p>
         
-                <h4>Localizing the Hoop:</h4>
+                <p>Localizing the Hoop:</p>
                 <ul class="formatted-list">
                     <li>We attached 4 IR-reflecting markers to the hoop</li>
                     <li>Define the center of mass to be the average of these 4 points, which will be the midpoint of the hoop</li>
                     <li>Configure Vicon to publish this position to a rostopic. Vicon publishes points at ~125 Hz.</li>
                 </ul>
         
-                <h4>Localizing the Drone:</h4>
+                <p>Localizing the Drone:</p>
                 <ul class="formatted-list">
                     <li>We attached 5 IR-reflecting markers to the drone in an asymmetrical manner</li>
                     <li>Asymmetrical configuration reduces ambiguity in marker identification of body</li>
@@ -219,24 +302,25 @@
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Side by Side Images</title>
                 </head> -->
-                <body>
-                    <h1>Drone and Hoop with IR Markers</h1>
+                <div>
                     <div class="image-gallery">
                         <img src="assets/images/drone.png" alt="Result Visualization 1">
                         <img src="assets/images/hoop.png" alt="Result Visualization 2">
                     </div>
-                </body>
 
-                <body>                
+                    <p class="image-caption">Figure 3: Drone and hoop with IR reflectors.</p>
+                </div>
+
+                <div>
                     <div class="image-container">
                         <img src="assets/images/vicon.png" alt="Vicon Tracker App">
-                        <p class="image-caption">Figure 3: Visualization of drone and hoop objects on Vicon</p>
+                        <p class="image-caption">Figure 4: Visualization of drone and hoop objects on Vicon</p>
                     </div>
                 
-                </body>
-            </section>
+                </div>
+            </div>
         
-            <section id="drone-control">
+            <div id="drone-control">
                 <h3>Drone Control and Trajectory Prediction for Thrown Hoop</h3>
                 <p>Controlling the drone using Tello SDK:</p>
                 <ul class="formatted-list">
@@ -264,7 +348,7 @@
                     </div>
                 </div>
                                         
-                <p><b>Now, let's go through the chronological steps of the entire process for the hoop-passing controller:</b></p>
+                <p>The steps of the entire process for the hoop-passing controller:</p>
                 <ol class="formatted-list">
                     <li>Drone Takeoff</li>
                     <li>Drone Warm-up (move forward as fast as possible)</li>
@@ -274,43 +358,20 @@
                     <li>Drone control using Tello SDK to go to in the direction of the desired point at a desired velocity</li>
                 </ol>
         
-                <p><b> Predicting the Hoop’s Trajectory: </b></p>
+                <h3> Predicting the Hoop’s Trajectory</h3>
                 <div class="image-container">
                     <img src="assets/images/hoop_traj.png" alt="Hoop Trajectory Prediction">
-                    <p class="image-caption">Figure 4: The motion along each axis can be modeled as a parabola. Trying to find a parameter matrix that satisfies the above equation.</p>
+                    <p class="image-caption">Figure 5: The motion along each axis can be modeled as a parabola. Trying to find a parameter matrix that satisfies the above equation.</p>
                 </div>
         
-                <p><b>The solution is using LEAST SQUARES:</b></p>
-                <p>We are trying to solve for unknowns in $$x(t) = x_0 + v_0t + \frac{1}{2}at^2$$</p>
+                <p>Using least squares, we are solving for unknowns in $$x(t) = x_0 + v_0t + \frac{1}{2}at^2$$</p>
                 <p>6 unknowns: 3 for initial velocity, and 3 for initial position. Acceleration is known!</p>
-        
-                <div class="image-container">
-                    <img src="assets/images/lsq.png" alt="Throwing lsq">
-                    <p class="image-caption">Figure 5: This gives the equation to determine $\beta$, which is the params matrix at the bottom, where $v$ is the initial velocity and $p$ is the initial position.</p>
-                </div>
-                
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Two Videos Side by Side</title>
-                    <style>
-                        /* Scoped styles for the specific container */
-                        .special-video-wrapper {
-                            display: flex;
-                            justify-content: center;
-                            gap: 20px; /* Add space between the videos */
-                            margin: 20px 0;
-                        }
-                
-                        .special-video-wrapper iframe {
-                            width: 500px;
-                            height: 300px; /* Maintain a 16:9 aspect ratio */
-                            border: none;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h1>Synchronized Hoop Throwing Prediction (left: vicon, right: irl) </h1>
+
+                <p>$$\beta = (X^T X)^{-1}X^T Y$$</p>
+                <p>$$\beta = \begin{bmatrix} 0 & v_x & p_x \\ 0 & v_y & p_y \\ g & v_z & p_z \end{bmatrix}$$</p>
+
+                <div>
+                    <h3>Synchronized Hoop Throwing Prediction (left: vicon, right: irl) </h3>
                     <div class="special-video-wrapper">
                         <iframe 
                             id="video1" 
@@ -327,41 +388,7 @@
                             allowfullscreen>
                         </iframe>
                     </div>
-                
-                    <script>
-                        // Load the YouTube IFrame API
-                        let player1, player2;
-                
-                        function onYouTubeIframeAPIReady() {
-                            player1 = new YT.Player('video1', { events: { onReady: setupPlayback } });
-                            player2 = new YT.Player('video2', { events: { onReady: setupPlayback } });
-                        }
-                
-                        function setupPlayback() {
-                            // Wait for both players to be ready
-                            if (player1 && player2) {
-                                const observer = new IntersectionObserver(entries => {
-                                    entries.forEach(entry => {
-                                        if (entry.isIntersecting) {
-                                            player1.playVideo();
-                                            player2.playVideo();
-                                        } else {
-                                            player1.pauseVideo();
-                                            player2.pauseVideo();
-                                        }
-                                    });
-                                }, { threshold: 0.5 }); // Trigger when 50% of the videos are visible
-                
-                                observer.observe(document.querySelector('.special-video-wrapper'));
-                            }
-                        }
-                
-                        // Load the API script dynamically
-                        const tag = document.createElement('script');
-                        tag.src = "https://www.youtube.com/iframe_api";
-                        document.head.appendChild(tag);
-                    </script>
-                </body>
+                </div>
         
                 <h4>Deciding on a Point to Fly Through:</h4>
                 <ul class="formatted-list">
@@ -375,7 +402,7 @@
         
                 <div class="image-container">
                     <img src="assets/images/0.1secs.png" alt="0.1 secs">
-                    <p class="image-caption">Figure 6: Illustration of the intent of our picked feasible point</p>
+                    <p class="image-caption">Figure 7: Illustration of the intent of our picked feasible point</p>
                 </div>
         
                 <p><b>Challenges with the thrown hoop-passing problem:</b></p>
@@ -400,8 +427,8 @@
                 </ul>
         
                 <p style="font-size: 18px; font-weight: bold;"> We couldn’t get the hoop-throwing pass through to work. So we tried rolling it instead.</p>
-                <h4 style="font-size: 24px; font-weight: bold;"> Drone Control and Trajectory Prediction for Rolling Hoop</h3>
-                <p>How to Predict Rolling Hoop Trajectory: <b>Use Least Squares!</b><p>
+                <h4 style="font-size: 24px; font-weight: bold;"> Drone Control and Trajectory Prediction for Rolling Hoop</h4>
+                <p>We used least squares to predict the rolling hoop trajectory:<p>
                 <ul class="formatted-list">
                     <li>4 unknowns: 2 for initial velocity, and 2 for initial position
                         <ul class="formatted-list">
@@ -421,32 +448,12 @@
                     <li>Feasible point is the first point that satisfies the requirement of the required velocity being the cap of $1 m/s$. This can be determined by finding the distance between the point and drone's current position...</li>
                 </ul>
 
-                <div class="image-container">
-                    <img src="assets/images/rolling_params.png" alt="rolling params" style="width: 200px; height: 100px;">
-                    <p class="image-caption">Figure 7: Unknown params to calculate using least squares. $v$ is initial velocity and $p$ is initial position.</p>
-                </div>   
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Two Videos Side by Side</title>
-                    <style>
-                        /* Scoped styles for the specific container */
-                        .special-video-wrapper {
-                            display: flex;
-                            justify-content: center;
-                            gap: 20px; /* Add space between the videos */
-                            margin: 20px 0;
-                        }
-                
-                        .special-video-wrapper iframe {
-                            width: 500px;
-                            height: 300px; /* Maintain a 16:9 aspect ratio */
-                            border: none;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h1>Synchronized Hoop Rolling Prediction (left: vicon, right: irl) </h1>
+                <p>
+                    $$\beta = \begin{bmatrix} v_x & p_x \\ v_y & p_y \end{bmatrix}$$
+                </p>
+
+                <div>
+                    <h3>Synchronized Hoop Rolling Prediction (left: vicon, right: irl) </h3>
                     <div class="special-video-wrapper">
                         <iframe 
                             id="video1" 
@@ -463,60 +470,15 @@
                             allowfullscreen>
                         </iframe>
                     </div>
-                
-                    <script>
-                        // Load the YouTube IFrame API
-                        let player1, player2;
-                
-                        function onYouTubeIframeAPIReady() {
-                            player1 = new YT.Player('video1', { events: { onReady: setupPlayback } });
-                            player2 = new YT.Player('video2', { events: { onReady: setupPlayback } });
-                        }
-                
-                        function setupPlayback() {
-                            // Wait for both players to be ready
-                            if (player1 && player2) {
-                                const observer = new IntersectionObserver(entries => {
-                                    entries.forEach(entry => {
-                                        if (entry.isIntersecting) {
-                                            player1.playVideo();
-                                            player2.playVideo();
-                                        } else {
-                                            player1.pauseVideo();
-                                            player2.pauseVideo();
-                                        }
-                                    });
-                                }, { threshold: 0.5 }); // Trigger when 50% of the videos are visible
-                
-                                observer.observe(document.querySelector('.special-video-wrapper'));
-                            }
-                        }
-                
-                        // Load the API script dynamically
-                        const tag = document.createElement('script');
-                        tag.src = "https://www.youtube.com/iframe_api";
-                        document.head.appendChild(tag);
-                    </script>
-                </body>
+                </div>
                 <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/kNtxFflnSr8?si=3SLn056bwEs6N8Su" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/A1N94Kl4BAw?si=CPMkj68RLLcxyRc2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
-            </section>
-        </section>   
+            </div>
+        </div>
 
-
-            <!-- Video example
-            <div class="video-container">
-                <video controls width="640">
-                    <source src="assets/videos/project-demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <p class="video-caption">Project Implementation Demonstration</p>
-            </div> -->
-
-        <section id="results">
+        <div id="results" class="section">
             <h2>Results</h2>         
             <div class="content-container">
-                <h5 class="centered-heading">Demo</h5>
                 <div class="video-wrapper">
                     <div class="video-container">
                         <iframe 
@@ -531,248 +493,81 @@
                 </div>
             </div>
             <div class="container">
-                <p class="highlighted-text">We were successfully able to make the drone fly through a rolling hoop pretty reliably, but we still could not get the hoop to fly through a hoop in the air.</p>
+                <p class="highlighted-text">We were successfully able to make the drone fly through a rolling hoop fairly reliably, but we still could not get the hoop to fly through a hoop in the air.</p>
             </div>       
-         </section>
+         </div>
 
-        <section id="conclusion">
+        <div id="conclusion" class="section">
             <h2>Conclusion</h2>
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Drone and Hoop Explanation</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        margin: 20px;
-                        background-color: #f4f4f9;
-                        color: #333;
-                    }
-            
-                    h1 {
-                        text-align: center;
-                        color: #2C3E50;
-                        margin-bottom: 30px;
-                    }
-            
-                    p {
-                        line-height: 1.6;
-                        font-size: 16px;
-                        margin-bottom: 20px;
-                    }
-            
-                    b {
-                        color: #e74c3c; /* Highlight 'HARDWARE CONSTRAINTS' in red */
-                    }
-            
-                    .container {
-                        max-width: 800px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        background-color: white;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                    }
-            
-                    .highlight {
-                        background-color: #f9f9f9;
-                        border-left: 4px solid #e74c3c;
-                        padding-left: 10px;
-                        margin-bottom: 20px;
-                    }
-            
-                    .highlight p {
-                        font-style: italic;
-                        color: #7f8c8d;
-                    }
-                </style>
-            </head>
-            <body>
-            
-                <div class="container">            
-                    <p>As mentioned, we could only get the hoop to fly through a rolling hoop. There are certain constraints still, such as the speed of the hoop, and the distance between the hoop and the drone. This is solely due to the <b>HARDWARE CONSTRAINTS</b> of the drone. Due to this issue, we were not able to meet the design criteria of getting the drone to fly through a hoop in the air.</p>
-            
-                    <p>However, we were still able to predict the hoop trajectory well, and get the drone to fly in the right direction of the "feasible" point. However, due to the latency and its inability to fly quickly, the drone would always be too late.</p>
-            
-                    <p class="highlight">
-                        We encountered difficulties with the drone control, since it is very limited in control (can only control velocity of drone, no pitch/roll control), and it has some variable time latency. It was difficult handling the noise in the control commands, plus the delay for the drone to follow the command.
-                    </p>
-            
-                    <p>One hack/flaw we used was to simply pick the first feasible point that is within the required velocity limit, which may not lead to the most smooth hoop passing trajectory of the drone. However, it should still work reliably, since we throw the hoop in front of the drone, so the plane of the hoop where the drone can pass will likely always provide an angle for the drone to pass through it.</p>
-                    <p> Takeaways and Improvements: </p>
-                    <ul class="formatted-list">
-                        <li>Use a faster drone in the future</li>
-                        <li>Filter the points used for least squares
-                            <ul class="formatted-list">
-                                <li>Have worked on this more and made progress in getting better trajectory predictions, particularly for the thrown hoop case</li>
-                            </ul>
-                        </li>
-                        <li>Implement low-latency, real-time control policy, beyond the <code>go_xyz</code> function</li>
-                        <li>Fuse MoCap data for accurate control</li>
-                        <li>Implemented Kalman filter for better target estimation – needs improvement</li>
-                        <li>Use the camera mounted on the drone to predict the hoop’s location based on its radius and forecast its trajectory</li>
-                        <li>Freefall detection for hoop trajectory prediction - “Press Enter to Go” workaround</li>
-                    </ul>
-                </div>
-            
-            </body>
-        </section>
+            <div class="container">
+                <p>As mentioned, we could only get the hoop to fly through a rolling hoop. There are certain constraints still, such as the speed of the hoop, and the distance between the hoop and the drone. This is solely due to the hardware constraints of the drone. Due to this issue, we were not able to meet the design criteria of getting the drone to fly through a hoop in the air.</p>
 
-        <section id="team">
+                <p>However, we were still able to predict the hoop trajectory well, and get the drone to fly in the right direction of the "feasible" point. However, due to the latency and its inability to fly quickly, the drone would always be too late.</p>
+
+                <p class="highlight">
+                    We encountered difficulties with the drone control, since it is very limited in control (can only control velocity of drone, no pitch/roll control), and it has some variable time latency. It was difficult handling the noise in the control commands, plus the delay for the drone to follow the command.
+                </p>
+
+                <p>One hack/flaw we used was to simply pick the first feasible point that is within the required velocity limit, which may not lead to the most smooth hoop passing trajectory of the drone. However, it should still work reliably, since we throw the hoop in front of the drone, so the plane of the hoop where the drone can pass will likely always provide an angle for the drone to pass through it.</p>
+                <p> Takeaways and Improvements: </p>
+                <ul class="formatted-list">
+                    <li>Use a faster drone in the future</li>
+                    <li>Filter the points used for least squares
+                        <ul class="formatted-list">
+                            <li>Have worked on this more and made progress in getting better trajectory predictions, particularly for the thrown hoop case</li>
+                        </ul>
+                    </li>
+                    <li>Implement low-latency, real-time control policy, beyond the <code>go_xyz</code> function</li>
+                    <li>Fuse MoCap data for accurate control</li>
+                    <li>Implemented Kalman filter for better target estimation – needs improvement</li>
+                    <li>Use the camera mounted on the drone to predict the hoop’s location based on its radius and forecast its trajectory</li>
+                    <li>Freefall detection for hoop trajectory prediction - “Press Enter to Go” workaround</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="team" class="section">
             <h2>Team</h2>
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Team Information</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        line-height: 1.6;
-                        margin: 20px;
-                    }
-            
-                    h2 {
-                        color: #2C3E50;
-                        text-align: center;
-                    }
-            
-                    .team-container {
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: space-around;
-                        gap: 20px;
-                    }
-            
-                    .team-member {
-                        background-color: #ECF0F1;
-                        padding: 20px;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                        width: 250px;
-                        text-align: center;
-                    }
-            
-                    .team-member h3 {
-                        margin-bottom: 10px;
-                        color: #2980B9;
-                    }
-            
-                    .team-member p {
-                        color: #34495E;
-                    }
-                </style>
-            </head>
-            <body>            
-                <div class="team-container">
-                    <div class="team-member">
-                        <h3>Nitin</h3>
-                        <p>EECS MS student interested in the intersection of Deep Learning and Robotics, with experience in ROS and machine learning.</p>
-                    </div>
-                    <div class="team-member">
-                        <h3>Satwik</h3>
-                        <p>EECS MS student with a passion for real-world robotics applications and experience developing autonomous drone software stacks for various competitions.</p>
-                    </div>
-                    <div class="team-member">
-                        <h3>Evan</h3>
-                        <p>4th Year EECS Undergrad student studying empowerment, reward learning, and reinforcement learning.</p>
-                    </div>
-                    <div class="team-member">
-                        <h3>Aryan</h3>
-                        <p>5th Year EECS MS student interested in Reinforcement Learning, Robotics, and Computer Vision.</p>
-                    </div>
+            <div class="team-container">
+                <div class="team-member">
+                    <h3>Nitin</h3>
+                    <p>EECS MS student interested in the intersection of Deep Learning and Robotics, with experience in ROS and machine learning.</p>
                 </div>
-            
-            </body>
-        </section>
+                <div class="team-member">
+                    <h3>Satwik</h3>
+                    <p>EECS MS student with a passion for real-world robotics applications and experience developing autonomous drone software stacks for various competitions.</p>
+                </div>
+                <div class="team-member">
+                    <h3>Evan</h3>
+                    <p>4th Year EECS Undergrad student studying empowerment, reward learning, and reinforcement learning.</p>
+                </div>
+                <div class="team-member">
+                    <h3>Aryan</h3>
+                    <p>5th Year EECS MS student interested in Reinforcement Learning, Robotics, and Computer Vision.</p>
+                </div>
+            </div>
+        </div>
 
-        <section id="additional-materials">
+        <div id="additional-materials" class="section">
             <h2>Additional Materials</h2>
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Links to code, resources, and supplementary information.</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        background-color: #f4f4f9;
-                        margin: 20px;
-                    }
-            
-                    .container {
-                        max-width: 800px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        background-color: white;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                    }
-            
-                    h2 {
-                        text-align: center;
-                        color: #2C3E50;
-                    }
-            
-                    .resources {
-                        list-style-type: none;
-                        padding: 0;
-                        margin: 20px 0;
-                    }
-            
-                    .resources li {
-                        background-color: #ecf0f1;
-                        padding: 15px;
-                        margin-bottom: 10px;
-                        border-radius: 5px;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                    }
-            
-                    .resources li a {
-                        text-decoration: none;
-                        color: #2980b9;
-                        font-size: 16px;
-                    }
-            
-                    .resources li a:hover {
-                        text-decoration: underline;
-                    }
-            
-                    .resources li .description {
-                        font-size: 14px;
-                        color: #7f8c8d;
-                    }
-            
-                </style>
-            </head>
-            <body>
-            
-                <div class="container">
-                    <h2>Resources</h2>
-                    <ul class="resources">
-                        <li>
-                            <a href="https://github.com/festusev/HulaHoopDrone" target="_blank">
-                                HulaHoopDrone
-                            </a>
-                            <span class="description">Drone control and hoop trajectory prediction system</span>
-                        </li>
-                        <li>
-                            <a href="https://github.com/damiafuentes/DJITelloPy" target="_blank">
-                                DJITelloPy
-                            </a>
-                            <span class="description">Python library to control the DJI Tello drone</span>
-                        </li>
-                    </ul>
-                </div>
-            
-            </body>
-        </section>
-    </main>
-
-    <footer>
-        <p>© © 2024 Hoop-passing Drone. All rights reserved.
-</p>
-    </footer>
+            <div class="container">
+                <ul class="resources">
+                    <li>
+                        <a href="https://github.com/festusev/HulaHoopDrone" target="_blank">
+                            HulaHoopDrone
+                        </a>
+                        <span class="description">Drone control and hoop trajectory prediction system</span>
+                    </li>
+                    <li>
+                        <a href="https://github.com/damiafuentes/DJITelloPy" target="_blank">
+                            DJITelloPy
+                        </a>
+                        <span class="description">Python library to control the DJI Tello drone</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
     <script src="js/main.js"></script>
 </body>
